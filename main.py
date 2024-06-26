@@ -31,7 +31,10 @@ async def home(request: Request, db: Session = Depends(get_db)):
     productos = db.query(models.Producto).all()
     return templates.TemplateResponse("home.html", {"request": request, "productos": productos})
 
-# Rutas para los Productos
+
+"""
+    Rutas para lo Productos
+"""
 @app.get("/productos/")
 async def lista_productos(request: Request, db: Session = Depends(get_db)):
     productos = db.query(models.Producto).all()
@@ -67,3 +70,51 @@ async def editar_producto(request: Request, producto_id: int, nombre: str = Form
     db.commit()
     db.refresh(producto)
     return templates.TemplateResponse("productos/editado.html", {"request": request, "producto": producto})
+
+
+"""
+    Rutas para las Ventas
+"""
+@app.get("/vendedores/", response_model=List[schemas.Vendedor])
+async def lista_vendedores(request: Request, db: Session = Depends(get_db)):
+    vendedores = db.query(models.Vendedor).all()
+    return templates.TemplateResponse("vendedores/lista.html", {"request": request, "vendedores": vendedores})
+
+@app.get("/vendedores/crear")
+async def crear_vendedor_form(request: Request):
+    return templates.TemplateResponse("vendedores/crear.html", {"request": request})
+
+@app.post("/vendedores/crear", response_model=schemas.Vendedor)
+async def crear_vendedor(request: Request, nombre: str = Form(...), region: str = Form(...), db: Session = Depends(get_db)):
+    nuevo_vendedor = models.Vendedor(nombre=nombre, region=region)
+    db.add(nuevo_vendedor)
+    db.commit()
+    db.refresh(nuevo_vendedor)
+    return templates.TemplateResponse("vendedores/creado.html", {"request": request, "vendedor": nuevo_vendedor})
+
+@app.get("/vendedores/editar/{vendedor_id}")
+async def editar_vendedor_form(request: Request, vendedor_id: int, db: Session = Depends(get_db)):
+    vendedor = db.query(models.Vendedor).filter(models.Vendedor.id == vendedor_id).first()
+    if vendedor is None:
+        raise HTTPException(status_code=404, detail="Vendedor no encontrado")
+    return templates.TemplateResponse("vendedores/editar.html", {"request": request, "vendedor": vendedor})
+
+@app.post("/vendedores/editar/{vendedor_id}", response_model=schemas.Vendedor)
+async def editar_vendedor(request: Request, vendedor_id: int, nombre: str = Form(...), region: str = Form(...), db: Session = Depends(get_db)):
+    vendedor = db.query(models.Vendedor).filter(models.Vendedor.id == vendedor_id).first()
+    if vendedor is None:
+        raise HTTPException(status_code=404, detail="Vendedor no encontrado")
+    vendedor.nombre = nombre
+    vendedor.region = region
+    db.commit()
+    db.refresh(vendedor)
+    return templates.TemplateResponse("vendedores/editado.html", {"request": request, "vendedor": vendedor})
+
+@app.delete("/vendedores/{vendedor_id}", response_model=schemas.Vendedor)
+def eliminar_vendedor(vendedor_id: int, db: Session = Depends(get_db)):
+    vendedor = db.query(models.Vendedor).filter(models.Vendedor.id == vendedor_id).first()
+    if vendedor is None:
+        raise HTTPException(status_code=404, detail="Vendedor no encontrado")
+    db.delete(vendedor)
+    db.commit()
+    return {"message": "Vendedor eliminado"}

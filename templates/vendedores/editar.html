@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Editar Vendedor</h2>
+<form action="/vendedores/editar/{{ vendedor.id }}" method="post">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" value="{{ vendedor.nombre }}" required>
+    
+    <label for="region">Región:</label>
+    <input type="text" id="region" name="region" value="{{ vendedor.region }}" required>
+    
+    <button type="submit">Actualizar Vendedor</button>
+</form>
+{% endblock %}

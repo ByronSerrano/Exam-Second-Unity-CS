@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Lista de Vendedores</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Región</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for vendedor in vendedores %}
+        <tr>
+            <td>{{ vendedor.id }}</td>
+            <td>{{ vendedor.nombre }}</td>
+            <td>{{ vendedor.region }}</td>
+            <td>
+                <a href="/vendedores/editar/{{ vendedor.id }}">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/vendedores/crear">Crear Nuevo Vendedor</a>
+{% endblock %}
