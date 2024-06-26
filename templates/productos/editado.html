@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Producto {% if request.url.path.startswith('/productos/crear') %}Creado{% else %}Editado{% endif %} con Éxito</h2>
+<p>El producto "{{ producto.nombre }}" ha sido {% if request.url.path.startswith('/productos/crear') %}creado{% else %}actualizado{% endif %} correctamente.</p>
+<a href="/">Volver a la lista de productos</a>
+{% endblock %}
