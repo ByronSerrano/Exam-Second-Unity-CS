@@ -32,6 +32,15 @@ Este proyecto fue creado usando FastAPI con Python. Y para la renderización de 
    pip install -r requeriments.txt
    ```
 
+4. Dentro del proyecto, crea un archivo llamado .env, usa estás credenciales para usar una DataBase en la nube:
+
+   ```bash
+   DB_HOST=byodsnzhyihhwcei9vo6-postgresql.services.clever-cloud.com
+   DB_NAME=byodsnzhyihhwcei9vo6
+   DB_USER=ugsu8hokxjgghmcmtyc5
+   DB_PASSWORD=07psNw1Mv2mpImZxviJz4WcyIBVa20
+   DB_PORT=50013
+   ```
 
 ## Levantar el proyecto
 
