@@ -5,6 +5,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 import os
 from typing import List
+from datetime import datetime
 
 from db.database import engine, get_db
 from schemas import schemas
@@ -118,3 +119,75 @@ def eliminar_vendedor(vendedor_id: int, db: Session = Depends(get_db)):
     db.delete(vendedor)
     db.commit()
     return {"message": "Vendedor eliminado"}
+
+
+"""
+    Rutas para las Ventas
+"""
+# Rutas para Ventas
+@app.get("/ventas/", response_model=List[schemas.Venta])
+async def lista_ventas(request: Request, db: Session = Depends(get_db)):
+    ventas = db.query(models.Venta).all()
+    return templates.TemplateResponse("ventas/lista.html", {"request": request, "ventas": ventas})
+
+@app.get("/ventas/crear")
+async def crear_venta_form(request: Request, db: Session = Depends(get_db)):
+    productos = db.query(models.Producto).all()
+    vendedores = db.query(models.Vendedor).all()
+    return templates.TemplateResponse("ventas/crear.html", {"request": request, "productos": productos, "vendedores": vendedores})
+
+@app.post("/ventas/crear", response_model=schemas.Venta)
+async def crear_venta(
+    request: Request, 
+    producto_id: int = Form(...), 
+    vendedor_id: int = Form(...), 
+    cantidad: int = Form(...), 
+    fecha_venta: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    fecha_venta = datetime.strptime(fecha_venta, '%Y-%m-%dT%H:%M')
+    nueva_venta = models.Venta(producto_id=producto_id, vendedor_id=vendedor_id, cantidad=cantidad, fecha_venta=fecha_venta)
+    db.add(nueva_venta)
+    db.commit()
+    db.refresh(nueva_venta)
+    return templates.TemplateResponse("ventas/creado.html", {"request": request, "venta": nueva_venta})
+
+@app.get("/ventas/editar/{venta_id}")
+async def editar_venta_form(request: Request, venta_id: int, db: Session = Depends(get_db)):
+    venta = db.query(models.Venta).filter(models.Venta.id == venta_id).first()
+    if venta is None:
+        raise HTTPException(status_code=404, detail="Venta no encontrada")
+    productos = db.query(models.Producto).all()
+    vendedores = db.query(models.Vendedor).all()
+    return templates.TemplateResponse("ventas/editar.html", {"request": request, "venta": venta, "productos": productos, "vendedores": vendedores})
+
+@app.post("/ventas/editar/{venta_id}", response_model=schemas.Venta)
+async def editar_venta(
+    request: Request, 
+    venta_id: int, 
+    producto_id: int = Form(...), 
+    vendedor_id: int = Form(...), 
+    cantidad: int = Form(...), 
+    fecha_venta: str = Form(...),
+    db: Session = Depends(get_db)
+):
+    venta = db.query(models.Venta).filter(models.Venta.id == venta_id).first()
+    if venta is None:
+        raise HTTPException(status_code=404, detail="Venta no encontrada")
+    fecha_venta = datetime.strptime(fecha_venta, '%Y-%m-%dT%H:%M')
+    venta.producto_id = producto_id
+    venta.vendedor_id = vendedor_id
+    venta.cantidad = cantidad
+    venta.fecha_venta = fecha_venta
+    db.commit()
+    db.refresh(venta)
+    return templates.TemplateResponse("ventas/editado.html", {"request": request, "venta": venta})
+
+@app.delete("/ventas/{venta_id}", response_model=schemas.Venta)
+def eliminar_venta(venta_id: int, db: Session = Depends(get_db)):
+    venta = db.query(models.Venta).filter(models.Venta.id == venta_id).first()
+    if venta is None:
+        raise HTTPException(status_code=404, detail="Venta no encontrada")
+    db.delete(venta)
+    db.commit()
+    return {"message": "Venta eliminada"}

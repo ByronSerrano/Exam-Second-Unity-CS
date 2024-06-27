@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Editar Venta</h2>
+<form action="/ventas/editar/{{ venta.id }}" method="post">
+    <label for="producto_id">Producto:</label>
+    <select id="producto_id" name="producto_id" required>
+        {% for producto in productos %}
+        <option value="{{ producto.id }}" {% if producto.id == venta.producto_id %}selected{% endif %}>
+            {{ producto.nombre }}
+        </option>
+        {% endfor %}
+    </select>
+    
+    <label for="vendedor_id">Vendedor:</label>
+    <select id="vendedor_id" name="vendedor_id" required>
+        {% for vendedor in vendedores %}
+        <option value="{{ vendedor.id }}" {% if vendedor.id == venta.vendedor_id %}selected{% endif %}>
+            {{ vendedor.nombre }}
+        </option>
+        {% endfor %}
+    </select>
+    
+    <label for="cantidad">Cantidad:</label>
+    <input type="number" id="cantidad" name="cantidad" value="{{ venta.cantidad }}" required min="1">
+    
+    <label for="fecha_venta">Fecha de Venta:</label>
+    <input type="datetime-local" id="fecha_venta" name="fecha_venta" 
+           value="{{ venta.fecha_venta.strftime('%Y-%m-%dT%H:%M') }}" required>
+    
+    <button type="submit">Actualizar Venta</button>
+</form>
+{% endblock %}

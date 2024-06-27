@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Venta Actualizada con Éxito</h2>
+<p>La venta ha sido actualizada correctamente.</p>
+<ul>
+    <li>Producto: {{ venta.producto.nombre }}</li>
+    <li>Vendedor: {{ venta.vendedor.nombre }}</li>
+    <li>Cantidad: {{ venta.cantidad }}</li>
+    <li>Fecha: {{ venta.fecha_venta.strftime('%Y-%m-%d %H:%M') }}</li>
+</ul>
+<a href="/ventas/">Volver a la lista de ventas</a>
+{% endblock %}

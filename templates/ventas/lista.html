@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Lista de Ventas</h2>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Producto</th>
+            <th>Vendedor</th>
+            <th>Cantidad</th>
+            <th>Fecha de Venta</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for venta in ventas %}
+        <tr>
+            <td>{{ venta.id }}</td>
+            <td>{{ venta.producto.nombre }}</td>
+            <td>{{ venta.vendedor.nombre }}</td>
+            <td>{{ venta.cantidad }}</td>
+            <td>{{ venta.fecha_venta.strftime('%Y-%m-%d %H:%M') }}</td>
+            <td>
+                <a href="/ventas/editar/{{ venta.id }}">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="/ventas/crear">Registrar Nueva Venta</a>
+{% endblock %}
