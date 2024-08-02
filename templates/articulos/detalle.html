@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle del Artículo{% endblock %}
+
+{% block content %}
+<h2>{{ articulo.nombre }}</h2>
+<p>{{ articulo.descripcion }}</p>
+<p>Promedio de Calificaciones: 
+    {% if articulo.promedio_calificaciones is not none %}
+        {{ articulo.promedio_calificaciones | round(2) }}
+    {% else %}
+        No tiene calificaciones aún
+    {% endif %}
+</p>
+
+<h3>Calificaciones y Reseñas</h3>
+<ul>
+    {% for calificacion in articulo.calificaciones %}
+        <li>
+            {{ calificacion.estrellas }} estrellas - {{ calificacion.reseña }} 
+            <small>por Usuario {{ calificacion.usuario_id }} el {{ calificacion.fecha }}</small>
+        </li>
+    {% endfor %}
+</ul>
+
+<h3>Dejar una Calificación</h3>
+<form action="{{ url_for('calificar_articulo') }}" method="post">
+    <input type="hidden" name="articulo_id" value="{{ articulo.id }}">
+    <label for="usuario_id">ID de Usuario:</label>
+    <input type="number" name="usuario_id" required>
+    <label for="estrellas">Calificación (1-5 estrellas):</label>
+    <input type="number" name="estrellas" min="1" max="5" required>
+    <label for="reseña">Reseña:</label>
+    <textarea name="reseña" required></textarea>
+    <button type="submit">Enviar</button>
+</form>
+{% endblock %}

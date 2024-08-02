@@ -1,34 +1,30 @@
-from sqlalchemy import Column, Integer, String, Float, ForeignKey, DateTime
+from sqlalchemy import Column, Integer, String, Float, DateTime, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship
 from db.database import Base
 
-class Producto(Base):
-    __tablename__ = "productos"
-
+class Articulo(Base):
+    __tablename__ = "articulos"
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
-    precio = Column(Float)
-    stock = Column(Integer)
+    nombre = Column(String, index=True, nullable=False)
+    descripcion = Column(String)
+    promedio_calificaciones = Column(Float, nullable=True)  # Permitir NULL en promedio_calificaciones
+    calificaciones = relationship("Calificacion", back_populates="articulo")
 
-    ventas = relationship("Venta", back_populates="producto")
-
-class Vendedor(Base):
-    __tablename__ = "vendedores"
-
+class Calificacion(Base):
+    __tablename__ = "calificaciones"
     id = Column(Integer, primary_key=True, index=True)
-    nombre = Column(String, index=True)
-    region = Column(String)
+    estrellas = Column(Integer)
+    reseña = Column(String)
+    fecha = Column(DateTime)
+    articulo_id = Column(Integer, ForeignKey("articulos.id"))
+    usuario_id = Column(Integer, ForeignKey("usuarios.id"))
+    articulo = relationship("Articulo", back_populates="calificaciones")
+    usuario = relationship("Usuario", back_populates="calificaciones")
+    
+    __table_args__ = (UniqueConstraint('articulo_id', 'usuario_id', name='uix_1'),)  # Añadir restricción de unicidad
 
-    ventas = relationship("Venta", back_populates="vendedor")
-
-class Venta(Base):
-    __tablename__ = "ventas"
-
+class Usuario(Base):
+    __tablename__ = "usuarios"
     id = Column(Integer, primary_key=True, index=True)
-    producto_id = Column(Integer, ForeignKey("productos.id"))
-    vendedor_id = Column(Integer, ForeignKey("vendedores.id"))
-    cantidad = Column(Integer)
-    fecha_venta = Column(DateTime)
-
-    producto = relationship("Producto", back_populates="ventas")
-    vendedor = relationship("Vendedor", back_populates="ventas")
+    nombre = Column(String, unique=True, index=True)
+    calificaciones = relationship("Calificacion", back_populates="usuario")

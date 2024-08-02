@@ -1,15 +1,22 @@
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+/* Reset CSS */
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f5f5f5;
+    line-height: 1.6;
 }
 
 header {
-    background-color: #333;
+    background-color: #4a4a4a;
     color: #fff;
-    text-align: center;
     padding: 1rem;
+    text-align: center;
 }
 
 nav {
@@ -20,86 +27,84 @@ nav a {
     color: #fff;
     text-decoration: none;
     margin: 0 10px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #cccccc;
 }
 
 main {
     padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
+    margin-bottom: 1rem;
 }
 
-table, th, td {
+table th, table td {
     border: 1px solid #ddd;
+    padding: 0.75rem;
+    text-align: left;
 }
 
-th, td {
-    padding: 12px;
-    text-align: left;
+table th {
+    background-color: #e9ecef;
+    font-weight: bold;
 }
 
 form {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 2rem auto;
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
     display: block;
-    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
 }
 
-input {
+input, textarea, select {
     width: 100%;
-    padding: 8px;
-    margin-top: 0.5rem;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 }
 
 button {
-    display: block;
     width: 100%;
-    padding: 10px;
-    background-color: #333;
+    padding: 0.75rem;
+    background-color: #6c757d;
     color: #fff;
     border: none;
+    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
-    margin-top: 1rem;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #555;
+    background-color: #5a6268;
 }
 
 footer {
-    background-color: #333;
+    background-color: #4a4a4a;
     color: #fff;
     text-align: center;
     padding: 1rem;
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-ul li {
-    margin: 10px 0;
-}
-
-.link-css {
-    display: inline-block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #fff;
-    background-color: #007bff;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.link-css:hover {
-    background-color: #0056b3;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 }

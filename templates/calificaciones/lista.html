@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Lista de Calificaciones{% endblock %}
+
+{% block content %}
+<h2>Lista de Calificaciones</h2>
+<ul>
+    {% for calificacion in calificaciones %}
+        <li>
+            {{ calificacion.estrellas }} estrellas - {{ calificacion.reseña }} 
+            <small>por Usuario {{ calificacion.usuario_id }} el {{ calificacion.fecha }}</small>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

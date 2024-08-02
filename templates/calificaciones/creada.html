@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Calificación Creada{% endblock %}
+
+{% block content %}
+<h2>Calificación Creada</h2>
+<p>Gracias por dejar tu calificación.</p>
+<a href="{{ url_for('ver_articulo', articulo_id=calificacion.articulo_id) }}">Volver al Artículo</a>
+{% endblock %}

@@ -1,45 +1,47 @@
 from pydantic import BaseModel
+from typing import List, Optional
 from datetime import datetime
-from typing import Optional
 
-class ProductoBase(BaseModel):
-    nombre: str
-    precio: float
-    stock: int
+class CalificacionBase(BaseModel):
+    estrellas: int
+    reseña: str
+    fecha: datetime
+    articulo_id: int
+    usuario_id: int
 
-class ProductoCreate(ProductoBase):
+class CalificacionCreate(CalificacionBase):
     pass
 
-class Producto(ProductoBase):
+class Calificacion(CalificacionBase):
     id: int
 
     class Config:
         orm_mode = True
 
-class VendedorBase(BaseModel):
+class ArticuloBase(BaseModel):
     nombre: str
-    region: str
+    descripcion: str
+    promedio_calificaciones: float
 
-class VendedorCreate(VendedorBase):
+class ArticuloCreate(ArticuloBase):
     pass
 
-class Vendedor(VendedorBase):
+class Articulo(ArticuloBase):
     id: int
+    calificaciones: List[Calificacion] = []
 
     class Config:
         orm_mode = True
 
-class VentaBase(BaseModel):
-    producto_id: int
-    vendedor_id: int
-    cantidad: int
-    fecha_venta: datetime
+class UsuarioBase(BaseModel):
+    nombre: str
 
-class VentaCreate(VentaBase):
+class UsuarioCreate(UsuarioBase):
     pass
 
-class Venta(VentaBase):
+class Usuario(UsuarioBase):
     id: int
+    calificaciones: List[Calificacion] = []
 
     class Config:
         orm_mode = True
