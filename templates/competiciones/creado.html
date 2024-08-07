@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Competición Creada</h2>
+<p>Nombre: {{ competicion.name }}</p>
+<p>Ubicación: {{ competicion.location }}</p>
+<p>Fecha: {{ competicion.date }}</p>
+<a href="/competiciones/">Volver a la lista de competiciones</a>
+{% endblock %}

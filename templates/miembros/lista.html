@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Lista de Competiciones</h2>
+<a class="link-css create_button" href="/competiciones/crear">Crear Competición</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Ubicación</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for competicion in competiciones %}
+        <tr>
+            <td>{{ competicion.id }}</td>
+            <td>{{ competicion.name }}</td>
+            <td>{{ competicion.location }}</td>
+            <td>{{ competicion.date }}</td>
+            <td>
+                <a href="/competiciones/editar/{{ competicion.id }}">Editar</a>
+                <form method="post" action="/competiciones/eliminar/{{ competicion.id }}" style="display:inline;">
+                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta competición?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

@@ -9,7 +9,7 @@ body {
 
 header {
     width: 200px;
-    background-color: #343a40;
+    background-color: #380042;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,7 @@ nav a {
     text-align: center;
     box-sizing: border-box;
     transition: background-color 0.3s, color 0.3s;
-    border: 1px solid #495057; /* Borde minimalista */
+    border: 1px solid #5d1b68; /* Borde minimalista */
     margin: 0.5rem 0; /* Espaciado entre los enlaces */
     margin-left: 0.7rem; /* Espaciado a la izquierda */
     margin-right: 1rem; /* Espaciado a la izquierda */
@@ -48,7 +48,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #495057;
+    background-color: #550064;
     color: #adb5bd; /* Color más claro al pasar el mouse */
 }
 
@@ -104,7 +104,7 @@ button:hover {
 }
 
 footer {
-    background-color: #343a40;
+    background-color: #380042;
     color: #fff;
     text-align: center;
     padding: 0.5rem; /* Footer más pequeño */
@@ -113,7 +113,6 @@ footer {
     width: calc(100% - 200px); /* Ajuste para el sidebar con margen */
     margin-left: 200px;
     font-size: 0.8rem; /* Fuente más pequeña */
-    border-radius: 0 0 8px 8px; /* Bordes redondeados del footer */
 }
 
 ul {
@@ -130,11 +129,22 @@ ul li {
     padding: 10px 20px;
     text-decoration: none;
     color: #fff;
-    background-color: #007bff;
+    background-color: #5d1b68;
     border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .link-css:hover {
-    background-color: #0056b3;
+    background-color: #550064;
 }
+
+.create_button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #5d1b68;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}	

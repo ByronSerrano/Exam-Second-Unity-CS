@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Editar Entrenamiento</h2>
+<form action="/entrenamientos/editar/{{ entrenamiento.id }}" method="post">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" value="{{ entrenamiento.title }}" required>
+    
+    <label for="description">Descripción:</label>
+    <input type="text" id="description" name="description" value="{{ entrenamiento.description }}" required>
+    
+    <label for="date">Fecha:</label>
+    <input type="datetime-local" id="date" name="date" value="{{ entrenamiento.date }}" required>
+    
+    <label for="miembros">Miembros:</label>
+    <select id="miembros" name="miembros" multiple>
+        {% for miembro in miembros %}
+        <option value="{{ miembro.id }}" {% if miembro in entrenamiento.members %}selected{% endif %}>{{ miembro.nombre }}</option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit">Actualizar Entrenamiento</button>
+</form>
+{% endblock %}

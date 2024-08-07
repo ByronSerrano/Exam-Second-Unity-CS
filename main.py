@@ -15,7 +15,7 @@ from utils.auth import (
 import os
 from dotenv import load_dotenv
 from starlette.responses import RedirectResponse
-from routes import products, sales, vendors
+from routes import members, trainings, competitions
 
 # Cargar variables de entorno desde el archivo .env
 load_dotenv()
@@ -32,9 +32,9 @@ templates = Jinja2Templates(directory=templates_dir)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Incluir rutas
-app.include_router(products.router, prefix="/productos", tags=["productos"])
-app.include_router(sales.router, prefix="/ventas", tags=["ventas"])
-app.include_router(vendors.router, prefix="/vendedores", tags=["vendedores"])
+app.include_router(members.router, prefix="/miembros", tags=["miembros"])
+app.include_router(trainings.router, prefix="/entrenamientos", tags=["entrenamientos"])
+app.include_router(competitions.router, prefix="/competiciones", tags=["competiciones"])
 
 @app.post("/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -80,8 +80,7 @@ async def home(request: Request, db: Session = Depends(get_db)):
     except JWTError:
         return RedirectResponse(url="/login")
     
-    productos = db.query(models.Producto).all()
-    return templates.TemplateResponse("home.html", {"request": request, "productos": productos, "user": username})
+    return templates.TemplateResponse("home.html", {"request": request, "user": username})
 
 @app.get("/register/")
 def register_form(request: Request):

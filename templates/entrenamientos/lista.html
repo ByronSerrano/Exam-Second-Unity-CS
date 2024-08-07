@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Lista de Entrenamientos</h2>
+<a class="link-css create_button" href="/entrenamientos/crear">Crear Entrenamiento</a>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entrenamiento in entrenamientos %}
+        <tr>
+            <td>{{ entrenamiento.id }}</td>
+            <td>{{ entrenamiento.title }}</td>
+            <td>{{ entrenamiento.description }}</td>
+            <td>{{ entrenamiento.date }}</td>
+            <td>
+                <a href="/entrenamientos/editar/{{ entrenamiento.id }}">Editar</a>
+                <form method="post" action="/entrenamientos/eliminar/{{ entrenamiento.id }}" style="display:inline;">
+                    <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este entrenamiento?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

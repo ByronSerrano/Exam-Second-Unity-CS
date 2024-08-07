@@ -1,39 +1,62 @@
 from pydantic import BaseModel
+from datetime import datetime
+from typing import List, Optional
 
-class UserCreate(BaseModel):
+# Auth
+class UserBase(BaseModel):
     username: str
+
+class UserCreate(UserBase):
     password: str
 
-class User(BaseModel):
+class User(UserBase):
     id: int
-    username: str
 
     class Config:
         from_attributes = True
 
-class Producto(BaseModel):
-    id: int
+# Members
+class MemberBase(BaseModel):
     nombre: str
-    precio: float
-    stock: int
+    edad: int
+
+class MemberCreate(MemberBase):
+    pass
+
+class Member(MemberBase):
+    id: int
 
     class Config:
         from_attributes = True
 
-class Vendedor(BaseModel):
+# Trainings
+class TrainingBase(BaseModel):
+    title: str
+    description: str
+    date: datetime
+
+class TrainingCreate(TrainingBase):
+    members: List[int]
+
+class Training(TrainingBase):
     id: int
-    nombre: str
-    region: str
+    members: List[Member]
 
     class Config:
         from_attributes = True
 
-class Venta(BaseModel):
+# Competitions
+class CompetitionBase(BaseModel):
+    name: str
+    location: str
+    date: datetime
+
+class CompetitionCreate(CompetitionBase):
+    members: List[int]
+
+class Competition(CompetitionBase):
     id: int
-    producto_id: int
-    vendedor_id: int
-    cantidad: int
-    fecha_venta: str
+    members: List[Member]
 
     class Config:
         from_attributes = True

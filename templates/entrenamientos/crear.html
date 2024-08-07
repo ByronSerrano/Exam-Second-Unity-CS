@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Crear Entrenamiento</h2>
+<form action="/entrenamientos/crear" method="post">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" required>
+    
+    <label for="description">Descripción:</label>
+    <input type="text" id="description" name="description" required>
+    
+    <label for="date">Fecha:</label>
+    <input type="datetime-local" id="date" name="date" required>
+    
+    <label for="miembros">Miembros:</label>
+    <select id="miembros" name="miembros" multiple>
+        {% for miembro in miembros %}
+        <option value="{{ miembro.id }}">{{ miembro.nombre }}</option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit">Crear Entrenamiento</button>
+</form>
+{% endblock %}
