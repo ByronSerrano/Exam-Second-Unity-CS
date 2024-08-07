@@ -16,15 +16,25 @@ Este proyecto fue creado usando FastAPI con Python. Y para la renderización de 
 2. Crea un entorno virtual en python:
 
    ```bash
-   python -m venv env
+   # Para Windows
+   python -m venv venv
+   ```
+   ```bash
+   # Para linux
+   python -m venv venv
    ```
 
 3. Activa el Entorno Virtual:
 
+   Para Windows
    ```bash
-   env\Script\activate
+   venv\Script\activate
    ```
 
+   Para Windows
+   ```bash
+   source venv/bin/activate
+   ```
 
 4. Dentro del proyecto, instala las dependencias:
 
