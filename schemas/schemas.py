@@ -1,45 +1,39 @@
 from pydantic import BaseModel
-from datetime import datetime
-from typing import Optional
 
-class ProductoBase(BaseModel):
+class UserCreate(BaseModel):
+    username: str
+    password: str
+
+class User(BaseModel):
+    id: int
+    username: str
+
+    class Config:
+        from_attributes = True
+
+class Producto(BaseModel):
+    id: int
     nombre: str
     precio: float
     stock: int
 
-class ProductoCreate(ProductoBase):
-    pass
-
-class Producto(ProductoBase):
-    id: int
-
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-class VendedorBase(BaseModel):
+class Vendedor(BaseModel):
+    id: int
     nombre: str
     region: str
 
-class VendedorCreate(VendedorBase):
-    pass
-
-class Vendedor(VendedorBase):
-    id: int
-
     class Config:
-        orm_mode = True
+        from_attributes = True
 
-class VentaBase(BaseModel):
+class Venta(BaseModel):
+    id: int
     producto_id: int
     vendedor_id: int
     cantidad: int
-    fecha_venta: datetime
-
-class VentaCreate(VentaBase):
-    pass
-
-class Venta(VentaBase):
-    id: int
+    fecha_venta: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

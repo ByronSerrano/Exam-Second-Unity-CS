@@ -31,7 +31,7 @@ Este proyecto fue creado usando FastAPI con Python. Y para la renderización de 
    venv\Script\activate
    ```
 
-   Para Windows
+   Para Linux
    ```bash
    source venv/bin/activate
    ```
@@ -50,6 +50,9 @@ Este proyecto fue creado usando FastAPI con Python. Y para la renderización de 
    DB_USER=ugsu8hokxjgghmcmtyc5
    DB_PASSWORD=07psNw1Mv2mpImZxviJz4WcyIBVa20
    DB_PORT=50013
+   SECRET_KEY=super_secret_key
+   ALGORITHM=HS256
+   ACCESS_TOKEN_EXPIRE_MINUTES=100
    ```
 
 ## Levantar el proyecto
@@ -59,3 +62,8 @@ Este proyecto fue creado usando FastAPI con Python. Y para la renderización de 
    ```bash
    uvicorn main:app --reload
    ```
+
+2. Inició de Sesión
+En caso de iniciar sesión usa el usuario admin:
+username: admin
+password: admin

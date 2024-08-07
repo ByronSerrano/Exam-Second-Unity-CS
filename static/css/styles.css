@@ -3,27 +3,59 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 0;
+    display: flex; /* Ajuste para hacer uso del sidebar */
+    background-color: #f8f9fa; /* Fondo más claro */
 }
 
 header {
-    background-color: #333;
+    width: 200px;
+    background-color: #343a40;
     color: #fff;
-    text-align: center;
-    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    height: 100vh;
+    position: fixed;
+}
+
+header h1 {
+    font-size: 1.2rem; /* Título más pequeño */
+    margin-bottom: 1rem;
+    font-weight: normal;
 }
 
 nav {
+    display: flex;
+    flex-direction: column;
     margin-top: 1rem;
+    width: 100%; /* Ocupa todo el ancho del sidebar */
+    padding: 0 1rem; /* Margen interior para las opciones */
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
-    margin: 0 10px;
+    padding: 0.5rem 1rem;
+    text-align: center;
+    box-sizing: border-box;
+    transition: background-color 0.3s, color 0.3s;
+    border: 1px solid #495057; /* Borde minimalista */
+    margin: 0.5rem 0; /* Espaciado entre los enlaces */
+    margin-left: 0.7rem; /* Espaciado a la izquierda */
+    margin-right: 1rem; /* Espaciado a la izquierda */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+nav a:hover {
+    background-color: #495057;
+    color: #adb5bd; /* Color más claro al pasar el mouse */
 }
 
 main {
+    margin-left: 200px; /* Mantén el margen para el sidebar */
     padding: 2rem;
+    flex-grow: 1;
 }
 
 table {
@@ -60,7 +92,7 @@ button {
     display: block;
     width: 100%;
     padding: 10px;
-    background-color: #333;
+    background-color: #343a40;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -68,17 +100,20 @@ button {
 }
 
 button:hover {
-    background-color: #555;
+    background-color: #495057;
 }
 
 footer {
-    background-color: #333;
+    background-color: #343a40;
     color: #fff;
     text-align: center;
-    padding: 1rem;
+    padding: 0.5rem; /* Footer más pequeño */
     position: fixed;
     bottom: 0;
-    width: 100%;
+    width: calc(100% - 200px); /* Ajuste para el sidebar con margen */
+    margin-left: 200px;
+    font-size: 0.8rem; /* Fuente más pequeña */
+    border-radius: 0 0 8px 8px; /* Bordes redondeados del footer */
 }
 
 ul {
