@@ -65,5 +65,7 @@ Este proyecto fue creado usando FastAPI con Python. Y para la renderización de 
 
 2. Inició de Sesión
 En caso de iniciar sesión usa el usuario admin:
+
 username: admin
+
 password: admin
